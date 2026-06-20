@@ -1,66 +1,78 @@
-## Foundry
+# 🎰 Title Roulette Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+> Mint your legendary title on Base chain, generated from your birthday!
 
-Foundry consists of:
+## 📋 Overview
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This is the NFT smart contract for the "Title Roulette" Farcaster Mini App.
+Enter your birthday to generate a unique legendary title, then mint it on Base chain directly from Warpcast.
 
-## Documentation
+## 🔗 Deployment
 
-https://book.getfoundry.sh/
+| Item | Value |
+|------|-------|
+| Network | Base Mainnet |
+| Contract Address | `0x558924bac486f7C4588c1d0F824Dd9f43FE0daDb` |
+| Basescan | [View Contract](https://basescan.org/address/0x558924bac486f7C4588c1d0F824Dd9f43FE0daDb) |
+| Standard | ERC-721 |
+| Max Supply | 8,888 |
+| Mint Price | Free |
 
-## Usage
+## 🎮 Related Projects
 
-### Build
+- [Title Roulette App](https://title-roulette-j3xw.vercel.app) - Farcaster Mini App
+- [GitHub: title-roulette](https://github.com/kasoutarou666/title-roulette)
 
-```shell
-$ forge build
+## 🏆 How Titles Are Generated
+
+Your birthday (year/month/day) is used as a seed to generate a title from 3 categories:
+
+| Category | Examples |
+|----------|---------|
+| A: Adjective | Legendary, Cursed, Ancient, Ultimate... |
+| B: Role | Samurai, Ninja, Philosopher, Wizard... |
+| C: Trait | Wanted, Immortal, Glitched, Ascended... |
+
+People with the same birthday always get the same title!
+
+## 📝 Contract Functions
+
+### mint
+```solidity
+function mint(
+  string memory titleEn,
+  string memory titleJa,
+  uint16 birthYear,
+  uint8 birthMonth,
+  uint8 birthDay,
+  string memory uri
+) external
+```
+Mints a legendary title NFT with birthday metadata on Base chain.
+
+### getRecord
+```solidity
+function getRecord(uint256 tokenId) external view returns (TitleRecord memory)
+```
+Returns the title record for a given token ID.
+
+## 🛠️ Tech Stack
+
+- **Solidity** ^0.8.20
+- **Foundry** - Testing & Deployment
+- **OpenZeppelin** v5.6.1 - ERC-721 Implementation
+- **Base** - L2 Blockchain
+
+## 🚀 Local Development
+
+```bash
+git clone https://github.com/kasoutarou666/title-roulette-contract.git
+cd title-roulette-contract
+forge install
+forge build
+forge test
 ```
 
-### Test
+## 📜 License
 
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+MIT
